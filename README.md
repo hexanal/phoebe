@@ -73,12 +73,16 @@ This would give you something like:
   ]
 ```
 
+***
+
 ### `phoebe_get_children_pages(8)`
 
-Lists the children pages of the current page. That comes in handy when you want
-to build a quick menu for a given page and show its children.
+> This (and the following function) is based on the actual **pages** found in the Wordpress admin, and **not** on navigation menus.
 
-Based on my previous example, running this function would return:
+Lists the children pages of the current page. That comes in handy when you want
+to build a quick contextual menu for a given page and show its children.
+
+Based on the previous example structure, running this function would return:
 
 ```php
 [
@@ -87,6 +91,10 @@ Based on my previous example, running this function would return:
   'href' => 'http://phoebe.local/another-page-in-the-wall/child-page/'
 ];
 ```
+
+Notice we're using the page ID here (`page-id` in the array returned by the `phoebe_get_menu` function)
+
+***
 
 ### `phoebe_get_siblings_pages(8, false)`
 
