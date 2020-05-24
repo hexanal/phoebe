@@ -29,7 +29,8 @@ This would give you something like:
 ```php
 [
   [
-    'id' => 15, // the ID of the WP_Term object
+    'id' => 15, // the ID of the `nav_menu_item` WP_Post object
+    'page-id' => 2, // the ID of the actual object (usually a page) the menu item points to
     'label' => 'Homepage', // the menu item label (as defined in Appearance > Menus)
     'is-active' => true, // boolean value is true if the page is active (or one of its children is)
     'slug' => 'homepage', // this is a kebab-case version of the label (can be used to slap on a class or a data attribute on a link)
@@ -43,6 +44,7 @@ This would give you something like:
   ],
   [
     'id' => 13,
+    'page-id' => 8,
     'label' => 'Another page in the wall',
     'is-active' => false,
     'slug' => 'another-page-in-the-wall',
@@ -55,6 +57,7 @@ This would give you something like:
     'children' => [ // childrens will have the same exact kind of array structure
       [
         'id' => 14,
+        'page-id' => 10,
         'label' => 'Child page',
         'is-active' => false,
         'slug' => 'child-page',
@@ -70,7 +73,7 @@ This would give you something like:
   ]
 ```
 
-### `phoebe_get_children_pages(13)`
+### `phoebe_get_children_pages(8)`
 
 Lists the children pages of the current page. That comes in handy when you want
 to build a quick menu for a given page and show its children.
@@ -85,7 +88,7 @@ Based on my previous example, running this function would return:
 ];
 ```
 
-### `phoebe_get_siblings_pages(13)`
+### `phoebe_get_siblings_pages(8, false)`
 
 Lists the *siblings* pages of the current page. That comes in handy if you wish
 to build a quick sidebar menu for a given page and show the pages of the same
@@ -93,6 +96,10 @@ depth/hierarchy level.
 
 Based on my previous example, running this function would return the homepage,
 which is the only sibling of page ID **13**.
+
+The second argument determines whether we should display the currently active
+page item or not (you can always decide to exclude it when looping through the
+items, just by looking at the `active` flag)
 
 ```php
 [

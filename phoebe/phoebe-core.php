@@ -17,6 +17,7 @@ function phoebe_get_menu_item_info($item, $menu_items) {
    */
   return array(
     'id' => $item_id,
+    'page-id' => $item->object_id, // the actual object ID the item points to
     'label' => $item->title,
     'is-active' => $is_active,
     'slug' => sanitize_title($item->title),

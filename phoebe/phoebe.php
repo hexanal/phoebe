@@ -58,24 +58,23 @@ function phoebe_get_children_pages($parentId) {
  * ———————————————————————————————————————————————————————
  *
  * @param int (optional) the ID of the sibling page, defaults to the current page
+ * @param boolean (optional) should the menu include the current active menu item or not?
  * @return array an array containing the siblings pages along with some attributes
  */
-function phoebe_get_sibling_pages($id = null) {
+function phoebe_get_sibling_pages($id = null, $include_self = true) {
   if (!$id) {
     global $post;
     $id = $post->ID;
   }
 
   $parentId = wp_get_post_parent_id($id);
-  $parent = get_post($parentId);
-  $parentItem = [
-    [
-      'active' => false,
-      'label' => $parent->post_title,
-      'href' => get_permalink($parentId)
-    ]
-  ];
   $siblings = phoebe_get_children_pages($parentId);
 
-  return array_merge($parentItem, $siblings);
+  if (!$include_self) {
+    $siblings = array_filter($siblings, function($item) {
+      return !$item['active'];
+    });
+  }
+
+  return $siblings;
 }
